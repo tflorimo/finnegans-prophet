@@ -42,7 +42,6 @@ def ensure_table(conn):
       upper FLOAT NULL,
       createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
       updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      deletedAt DATETIME NULL,
       UNIQUE KEY uniq_room_datetime (roomEmail, date)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     """
@@ -174,8 +173,8 @@ def upsert_forecasts(conn, df_fc: pd.DataFrame):
     )
 
     sql = """
-    INSERT INTO room_hourly_forecasts (roomEmail, date, occupancyPredicted, lower, upper, updatedAt)
-    VALUES (%s, %s, %s, %s, %s, NOW())
+    INSERT INTO room_hourly_forecasts (roomEmail, date, occupancyPredicted, lower, upper, createdAt, updatedAt)
+    VALUES (%s, %s, %s, %s, %s, NOW(), NOW())
     ON DUPLICATE KEY UPDATE
       occupancyPredicted = VALUES(occupancyPredicted),
       lower = VALUES(lower),
