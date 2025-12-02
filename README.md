@@ -572,33 +572,6 @@ $ python finn_prophet.py --horizon 30 --start-hour 6 --end-hour 22 --min-history
 
 ---
 
-## Roadmap
-
-### Corto plazo (v1.1)
-
-- [ ] Paralelización con `multiprocessing.Pool` para entrenar múltiples salas
-- [ ] Caching de modelos Prophet (serialización .pkl) entre ejecuciones
-- [ ] Batch inserts para reducir latencia de BD
-- [ ] Logging con módulo `logging` estándar de Python
-
-### Mediano plazo (v1.5)
-
-- [ ] Soporte para múltiples modelos: ARIMA, ExponentialSmoothing
-- [ ] Cross-validation y métricas (RMSE, MAE, MAPE)
-- [ ] Dashboard interactivo (Streamlit o Plotly)
-- [ ] API REST (FastAPI) para predicciones en tiempo real
-- [ ] Exportación de reportes (PDF, HTML)
-
-### Largo plazo (v2.0)
-
-- [ ] Integración con Google Calendar API / Outlook
-- [ ] Detección automática de anomalías en datos históricos
-- [ ] Modelos de deep learning (LSTM, Transformer)
-- [ ] UI web para configuración de parámetros
-- [ ] Alertas automáticas de sobrecapacidad
-
----
-
 ## Contribución
 
 ### Clonar y desarrollar
