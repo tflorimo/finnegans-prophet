@@ -386,7 +386,7 @@ After=network.target mysql.service
 Type=oneshot
 WorkingDirectory=/opt/finnegans-prophet
 ExecStart=/usr/bin/python3 finn_prophet.py
-User=finnegans
+User=user
 StandardOutput=journal
 StandardError=journal
 ```
