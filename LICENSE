@@ -1,0 +1,98 @@
+MIT License
+
+Copyright (c) 2025 Finnegans - Sistema de Gestión de Salas de Reuniones
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## RESUMEN DE LA LICENCIA MIT
+
+### ¿Qué puedes hacer?
+
+✅ **Usar el software comercialmente**
+   - Puedes usar Finnegans Prophet en proyectos comerciales sin limitaciones
+
+✅ **Modificar el código**
+   - Puedes cambiar, mejorar y adaptar el código a tus necesidades
+
+✅ **Distribuir y redistribuir**
+   - Puedes compartir el software modificado o sin modificar con otros
+
+✅ **Usar privadamente**
+   - Puedes usar el software en proyectos privados sin restricciones
+
+✅ **Sublicenciar**
+   - Puedes otorgar los mismos derechos a terceros bajo los mismos términos
+
+### ¿Qué tienes que hacer?
+
+📋 **Incluir el aviso de copyright y licencia**
+   - Debes incluir una copia de esta licencia en tu proyecto
+   - Debes mantener los avisos de copyright en los archivos originales
+
+### ¿Qué NO puedes hacer?
+
+❌ **Responsabilidad limitada**
+   - Los autores NO son responsables de daños derivados del uso del software
+   - El software se proporciona "tal cual" sin garantías
+
+❌ **Culpabilidad**
+   - No puedes responsabilizar legalmente a los autores por problemas con el software
+
+---
+
+## APLICACIÓN PRÁCTICA
+
+### Si usas Finnegans Prophet en tu proyecto:
+
+1. **Incluye el archivo LICENSE** en tu repositorio
+2. **Mantén la atribución** al proyecto original
+3. **Documenta los cambios** si modificas el código
+4. **Comparte bajo la misma licencia** (MIT) si redistribuyes
+
+### Ejemplo en tu README:
+
+```markdown
+## Licencia
+
+Este proyecto está basado en [Finnegans Prophet](https://github.com/tflorimo/finnegans-prophet)
+y está bajo licencia MIT.
+
+Copyright (c) 2025 Finnegans Contributors
+```
+
+### Si trabajas en equipo:
+
+- Todos los colaboradores aceptan los términos de la licencia MIT
+- El código contribuido automáticamente se cubre bajo estos términos
+- No se requiere CLA (Contributor License Agreement) adicional
+
+---
+
+## REFERENCIAS
+
+- Texto oficial de la licencia MIT: https://opensource.org/licenses/MIT
+- ¿Por qué elegir MIT? https://choosealicense.com/licenses/mit/
+- FAQ sobre MIT: https://opensource.org/FAQ
+
+---
+
+**Fecha de licencia**: 2025-12-01
+**Versión de licencia**: 1.0.0
