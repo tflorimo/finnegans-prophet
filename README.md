@@ -389,9 +389,6 @@ ExecStart=/usr/bin/python3 finn_prophet.py
 User=finnegans
 StandardOutput=journal
 StandardError=journal
-Environment="DB_HOST=localhost"
-Environment="DB_USER=root"
-Environment="DB_NAME=finnegans"
 ```
 
 **Crear `/etc/systemd/system/prophet.timer`:**
