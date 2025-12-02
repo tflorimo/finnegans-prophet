@@ -50,6 +50,7 @@ def ensure_table(conn):
     conn.commit()
     cur.close()
 
+# Trae eventos de los últimos 6 meses
 def fetch_raw_events(conn) -> pd.DataFrame:
     cur = conn.cursor(dictionary=True)
     query = """
@@ -78,31 +79,39 @@ def prepare_hourly_data(df_events: pd.DataFrame, start_hour: int, end_hour: int)
     for room, group in df_events.groupby("roomEmail"):
         if group.empty:
             continue
-            
+
+        # Busca la fecha mínima de inicio de evento (min_date) y la lleva al inicio del día.
         min_date = group["startTime"].min().floor("D")
         if min_date >= max_date:
             continue
 
         full_range = pd.date_range(start=min_date, end=max_date, freq="h")
         
+        # filtrar por horas laborales (8 a 18hs)
         full_range = full_range[(full_range.hour >= start_hour) & (full_range.hour < end_hour)]
         
         if full_range.empty:
             continue
 
-        # serie base en 0
+        # serie base en 0 (libre por defecto)
         ts = pd.Series(0.0, index=full_range)
         
         # ocupación
         for _, row in group.iterrows():
+            # redondeo de tiempos (hacia abajo/arriba)
             s = row["startTime"].floor("h")
             e = row["endTime"].ceil("h")
             
+            # Genera rangos horarios de una hora
             evt_rng = pd.date_range(s, e, freq="h", inclusive="left")
             
+            # Intersección con el índice de la serie temporal (sólo 8 a 18hs)
             valid = ts.index.intersection(evt_rng)
+
+            # Marca horas como 1.0 = ocupado
             ts.loc[valid] = 1.0
-            
+
+        # Construye tabla final por sala (ds: datetime, y: ocupación) 
         room_df = pd.DataFrame({"ds": ts.index, "y": ts.values})
         room_df["roomEmail"] = room
         data_frames.append(room_df)
@@ -125,6 +134,9 @@ def forecast_per_room(df_usage: pd.DataFrame, horizon_days: int, start_hour: int
             print(f"[WARN] Sala {room}: poca historia ({len(g)} horas < {points_needed}), se omite.", file=sys.stderr)
             continue
 
+        # aprende patrones diarios (por hora dentro del día) y semanales (por día de la semana).
+        # No aprende patrones anuales ni patrones por hora a lo largo de varios días (ej. hora de la semana).
+        # Controla qué tan sensible es a cambios bruscos en la tendencia.
         m = Prophet(
             weekly_seasonality=True,
             daily_seasonality=True,
@@ -148,7 +160,7 @@ def forecast_per_room(df_usage: pd.DataFrame, horizon_days: int, start_hour: int
 
         fc = m.predict(future)[["ds", "yhat", "yhat_lower", "yhat_upper"]]
 
-        # clamp por las dudas
+        # clamp por las dudas (dejarlos entre 0 y 1)
         for col in ["yhat", "yhat_lower", "yhat_upper"]:
             fc[col] = fc[col].clip(0, 1)
 
@@ -172,6 +184,7 @@ def upsert_forecasts(conn, df_fc: pd.DataFrame):
         .itertuples(index=False, name=None)
     )
 
+    # Si no existe, inserta. Si existe, actualiza.
     sql = """
     INSERT INTO room_hourly_forecasts (roomEmail, date, occupancyPredicted, lower, upper, createdAt, updatedAt)
     VALUES (%s, %s, %s, %s, %s, NOW(), NOW())
