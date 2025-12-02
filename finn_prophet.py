@@ -102,7 +102,7 @@ def prepare_hourly_data(df_events: pd.DataFrame, start_hour: int, end_hour: int)
             s = row["startTime"].floor("h")
             e = row["endTime"].ceil("h")
             
-            # Genera rango horarios de una hora
+            # Genera rangos horarios de una hora
             evt_rng = pd.date_range(s, e, freq="h", inclusive="left")
             
             # Intersección con el índice de la serie temporal (sólo 8 a 18hs)
@@ -111,7 +111,7 @@ def prepare_hourly_data(df_events: pd.DataFrame, start_hour: int, end_hour: int)
             # Marca horas como 1.0 = ocupado
             ts.loc[valid] = 1.0
 
-        # Construye tabla final por sala (ds: datetime, y: ocupación)  
+        # Construye tabla final por sala (ds: datetime, y: ocupación) 
         room_df = pd.DataFrame({"ds": ts.index, "y": ts.values})
         room_df["roomEmail"] = room
         data_frames.append(room_df)
@@ -134,8 +134,9 @@ def forecast_per_room(df_usage: pd.DataFrame, horizon_days: int, start_hour: int
             print(f"[WARN] Sala {room}: poca historia ({len(g)} horas < {points_needed}), se omite.", file=sys.stderr)
             continue
 
-        # aprende patrones por hora, día y semana. No mira patrones anuales 
-        # y controla qué tan sensible es a cambios bruscos en la tendencia
+        # aprende patrones diarios (por hora dentro del día) y semanales (por día de la semana).
+        # No aprende patrones anuales ni patrones por hora a lo largo de varios días (ej. hora de la semana).
+        # Controla qué tan sensible es a cambios bruscos en la tendencia.
         m = Prophet(
             weekly_seasonality=True,
             daily_seasonality=True,
